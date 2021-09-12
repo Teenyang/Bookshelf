@@ -1,0 +1,22 @@
+// Bootstrap basic
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/root";
+@import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/utilities";
+
+// Bootstrap grid system
+@import "~bootstrap/scss/grid";
+
+// Bootstrap components
+@import "~bootstrap/scss/transitions";
+@import "~bootstrap/scss/nav";
+@import "~bootstrap/scss/navbar";
+@import "~bootstrap/scss/forms";
+@import "~bootstrap/scss/buttons";
+@import "~bootstrap/scss/dropdown";
+
+// BootstrapVue components
+@import "~bootstrap-vue/src/components/navbar"; // include dropdown
+@import "~bootstrap-vue/src/components/form-input";
