@@ -6,7 +6,7 @@ import Vue from "vue";
 
 // Vue.use(BootstrapVue);
 
-import "@/assets/scss/_bootstrapVue.scss";
+import "@/assets/scss/vendors/_bootstrap-vue.scss";
 import { NavbarPlugin } from "bootstrap-vue";
 Vue.use(NavbarPlugin);
 
