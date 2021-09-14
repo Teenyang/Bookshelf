@@ -6,10 +6,12 @@
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav class="my_navbar_item">
-          <b-nav-item href="#">全部書單</b-nav-item>
-          <b-nav-item href="#">七折區</b-nav-item>
-          <b-nav-item href="#">五折區</b-nav-item>
+        <b-navbar-nav
+          class="my_navbar_item"
+          v-for="navItem in navList"
+          :key="navItem.id"
+        >
+          <b-nav-item href="#">{{ navItem.item }}</b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -38,6 +40,16 @@
 <script>
 export default {
   name: "Navbar",
+  data() {
+    return {
+      navList: [
+        { id: 1, item: "全部書單" },
+        { id: 2, item: "七折區" },
+        { id: 3, item: "五折區" },
+        { id: 4, item: "iT邦幫忙鐵人賽系列書" },
+      ],
+    };
+  },
 };
 </script>
 
