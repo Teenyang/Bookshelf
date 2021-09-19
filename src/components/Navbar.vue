@@ -1,7 +1,9 @@
 <template>
   <header>
     <b-navbar toggleable="lg" type="light" class="my_navbar">
-      <b-navbar-brand href="#">天瓏書單</b-navbar-brand>
+      <b-navbar-brand href="#" @click="$router.push('/')">
+        天瓏書單
+      </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -11,7 +13,12 @@
           v-for="navItem in navList"
           :key="navItem.id"
         >
-          <b-nav-item href="#">{{ navItem.item }}</b-nav-item>
+          <b-nav-item href="#" @click="$router.push({ name: navItem.name })">
+            {{ navItem.item }}
+          </b-nav-item>
+          <!-- <router-link :to="{ name: navItem.name }" class="nav-link">
+            {{ navItem.item }}
+          </router-link> -->
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -43,10 +50,10 @@ export default {
   data() {
     return {
       navList: [
-        { id: 1, item: "全部書單" },
-        { id: 2, item: "七折區" },
-        { id: 3, item: "五折區" },
-        { id: 4, item: "iT邦幫忙鐵人賽系列書" },
+        { id: 1, item: "全部書單", name: "All" },
+        { id: 2, item: "七折區", name: "Discount30" },
+        { id: 3, item: "五折區", name: "Discount50" },
+        { id: 4, item: "iT邦幫忙鐵人賽系列書", name: "Ithelp" },
       ],
     };
   },
