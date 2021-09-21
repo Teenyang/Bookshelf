@@ -1,7 +1,10 @@
 <template>
   <header>
     <b-navbar toggleable="lg" type="light" class="my_navbar">
-      <b-navbar-brand href="#" @click="$router.push('/')">
+      <b-navbar-brand
+        href="#"
+        @click="$router.push('/').catch((error) => error)"
+      >
         天瓏書單
       </b-navbar-brand>
 
@@ -13,12 +16,17 @@
           v-for="navItem in navList"
           :key="navItem.id"
         >
-          <b-nav-item href="#" @click="$router.push({ name: navItem.name })">
+          <!-- <b-nav-item
+            href="#"
+            @click="$router.push(navItem.name).catch((error) => error)"
+            :class="[$route.name === navItem.name ? 'current_route' : '']"
+          >
             {{ navItem.item }}
-          </b-nav-item>
-          <!-- <router-link :to="{ name: navItem.name }" class="nav-link">
+          </b-nav-item> -->
+
+          <router-link :to="{ name: navItem.name }" class="nav-link">
             {{ navItem.item }}
-          </router-link> -->
+          </router-link>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -75,6 +83,37 @@ export default {
   ::v-deep .nav-link {
     font-weight: bold;
     color: $dark-green;
+  }
+
+  &.navbar-light .navbar-nav .nav-link:hover {
+    color: red;
+  }
+
+  .current_route {
+    position: relative;
+    &:after {
+      content: "";
+      position: absolute;
+      bottom: -8px;
+
+      width: 100%;
+      height: 5px;
+      background-color: red;
+    }
+  }
+
+  .router-link-exact-active {
+    position: relative;
+    &:after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+
+      width: 100%;
+      height: 5px;
+      background-color: red;
+    }
   }
 
   &_feature {
