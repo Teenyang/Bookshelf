@@ -7,6 +7,10 @@ import Discount30 from "@/views/Discount30.vue";
 import Discount50 from "@/views/Discount50.vue";
 import Ithelp from "@/views/Ithelp.vue";
 
+import MemberPage from "@/components/MemberPage.vue";
+import Profile from "@/views/Profile.vue";
+import Collection from "@/views/Collection.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -43,6 +47,24 @@ const routes = [
     path: "/ithelp",
     name: "Ithelp",
     component: Ithelp,
+  },
+  {
+    path: "/member",
+    // redirect: "/member/profile",
+    redirect: { name: "Profile" },
+    component: MemberPage,
+    children: [
+      {
+        path: "profile",
+        name: "Profile",
+        component: Profile,
+      },
+      {
+        path: "collection",
+        name: "Collection",
+        component: Collection,
+      },
+    ],
   },
 ];
 
