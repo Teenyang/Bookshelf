@@ -47,6 +47,14 @@
             <b-dropdown-item href="#">ZH</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
+        <b-button
+          variant="primary"
+          size="sm"
+          class="my-2 my-sm-0"
+          type="button"
+          @click="$router.push('/member').catch((error) => error)"
+          >會員</b-button
+        >
       </b-collapse>
     </b-navbar>
   </header>
