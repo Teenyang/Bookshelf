@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <Navbar />
-    <div id="nav">
+    <!-- <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
-    </div>
+    </div> -->
     <router-view />
   </div>
 </template>
@@ -21,6 +21,10 @@ export default {
 
 <style lang="scss">
 #app {
+  margin: 0 auto;
+  max-width: 1440px;
+  min-width: 375px;
+
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
