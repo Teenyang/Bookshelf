@@ -40,10 +40,6 @@ export default {
 
 <style lang="scss" scoped>
 .Collection {
-  ul {
-    text-align: left;
-  }
-
   li {
     margin-bottom: 20px;
   }

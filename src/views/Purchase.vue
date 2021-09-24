@@ -20,7 +20,6 @@ export default {
 <style lang="scss" scoped>
 .bill {
   padding: 0 20px;
-  text-align: left;
 
   span {
     font-weight: bold;

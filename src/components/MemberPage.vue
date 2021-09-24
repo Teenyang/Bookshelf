@@ -44,6 +44,8 @@ export default {
 
   box-shadow: 0 5px 10px #00000070;
   background-color: $dark-green;
+
+  text-align: center;
 }
 
 .tab {
