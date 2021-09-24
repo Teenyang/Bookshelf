@@ -10,6 +10,7 @@ import Ithelp from "@/views/Ithelp.vue";
 import MemberPage from "@/components/MemberPage.vue";
 import Profile from "@/views/Profile.vue";
 import Collection from "@/views/Collection.vue";
+import Purchase from "@/views/Purchase.vue";
 
 Vue.use(VueRouter);
 
@@ -63,6 +64,11 @@ const routes = [
         path: "collection",
         name: "Collection",
         component: Collection,
+      },
+      {
+        path: "collection/purchase/:bookName",
+        name: "Purchase",
+        component: Purchase,
       },
     ],
   },
