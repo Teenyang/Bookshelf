@@ -42,6 +42,7 @@ export default {
 .Collection {
   li {
     margin-bottom: 20px;
+    text-align: left;
   }
 
   .buy_button,
