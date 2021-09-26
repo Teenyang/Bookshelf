@@ -18,27 +18,26 @@
         </p>
         <a :href="book.link" target="_blank">連結</a>
       </div>
-
-      <!-- <pre>{{ bookList }}</pre> -->
     </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   name: "All",
   data() {
-    return {
-      bookList: "",
-    };
+    return {};
   },
-
   created() {
-    axios
-      .get("https://bookshelf.goodideas-studio.com/api")
-      .then((response) => (this.bookList = response.data.list));
+    //   axios
+    //     .get("https://bookshelf.goodideas-studio.com/api")
+    //     .then((response) => (this.bookList = response.data.list));
+    this.$store.dispatch("fetchBookList");
+  },
+  computed: {
+    bookList() {
+      return this.$store.getters["bookList"];
+    },
   },
 };
 </script>
