@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import store from "@/store/index.js";
 
 import All from "@/views/All.vue";
 import Discount30 from "@/views/Discount30.vue";
@@ -33,6 +34,10 @@ const routes = [
     path: "/all",
     name: "All",
     component: All,
+    // beforeEnter: async (to, from, next) => {
+    //   await store.dispatch("fetchBookList");
+    //   next();
+    // },
   },
   {
     path: "/discount-30",
@@ -78,6 +83,11 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach(async (to, from, next) => {
+  await store.dispatch("fetchBookList");
+  next();
 });
 
 export default router;
