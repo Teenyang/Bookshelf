@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import store from "@/store/index.js";
 
+import MainPage from "@/components/MainPage.vue";
 import All from "@/views/All.vue";
 import Discount30 from "@/views/Discount30.vue";
 import Discount50 from "@/views/Discount50.vue";
@@ -31,34 +32,45 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/About.vue"),
   },
   {
-    path: "/all",
-    name: "All",
-    component: All,
-    // beforeEnter: async (to, from, next) => {
-    //   await store.dispatch("fetchBookList");
-    //   next();
-    // },
-  },
-  {
-    path: "/discount-30",
-    name: "Discount30",
-    component: Discount30,
-  },
-  {
-    path: "/discount-50",
-    name: "Discount50",
-    component: Discount50,
-  },
-  {
-    path: "/ithelp",
-    name: "Ithelp",
-    component: Ithelp,
+    path: "/book",
+    redirect: { name: "All" },
+    component: MainPage,
+    beforeEnter: async (to, from, next) => {
+      await store.dispatch("fetchBookList");
+      next();
+    },
+    children: [
+      {
+        path: "all",
+        name: "All",
+        component: All,
+      },
+      {
+        path: "discount-30",
+        name: "Discount30",
+        component: Discount30,
+      },
+      {
+        path: "discount-50",
+        name: "Discount50",
+        component: Discount50,
+      },
+      {
+        path: "ithelp",
+        name: "Ithelp",
+        component: Ithelp,
+      },
+    ],
   },
   {
     path: "/member",
     // redirect: "/member/profile",
     redirect: { name: "Profile" },
     component: MemberPage,
+    beforeEnter: async (to, from, next) => {
+      await store.dispatch("fetchBookList");
+      next();
+    },
     children: [
       {
         path: "profile",
@@ -85,9 +97,9 @@ const router = new VueRouter({
   routes,
 });
 
-router.beforeEach(async (to, from, next) => {
-  await store.dispatch("fetchBookList");
-  next();
-});
+// router.beforeEach(async (to, from, next) => {
+//   await store.dispatch("fetchBookList");
+//   next();
+// });
 
 export default router;
