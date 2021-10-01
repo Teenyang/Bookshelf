@@ -52,8 +52,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 .BookList {
+  margin-top: 80px;
   h1 {
-    margin: 20px 0;
+    margin-bottom: 20px;
   }
   & > p {
     margin-bottom: 20px;
