@@ -2,6 +2,14 @@
   <div class="BookList">
     <h1>{{ navTitle }}</h1>
     <p>共計 {{ bookList.length }} 本書</p>
+    <label
+      >搜尋書本：
+      <input
+        type="text"
+        :value="inputText"
+        @input="$emit('searchBook', $event)"
+      />
+    </label>
     <div class="bookshelf">
       <div class="book" v-for="book in bookList" :key="book.id">
         <img :src="book.image" alt="book image" />
@@ -27,6 +35,10 @@
 export default {
   name: "BookList",
   props: {
+    inputText: {
+      type: String,
+      required: false,
+    },
     navTitle: {
       type: String,
       required: false,
@@ -46,8 +58,13 @@ export default {
   & > p {
     margin-bottom: 20px;
   }
+
+  input {
+    border-radius: 6px;
+  }
 }
 .bookshelf {
+  margin-top: 20px;
   padding: 0 40px;
   display: grid;
   grid-template-columns: max(100%);
