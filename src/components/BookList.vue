@@ -27,8 +27,14 @@
 export default {
   name: "BookList",
   props: {
-    navTitle: String,
-    bookList: Array,
+    navTitle: {
+      type: String,
+      required: false,
+    },
+    bookList: {
+      type: Array,
+      required: true,
+    },
   },
 };
 </script>
