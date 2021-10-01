@@ -12,7 +12,7 @@ export default {
   components: { BookList },
   computed: {
     books() {
-      return this.$store.getters["bookList"];
+      return this.$store.getters["allBooks"];
     },
   },
 };

@@ -12,10 +12,7 @@ export default {
   components: { BookList },
   computed: {
     books() {
-      // return this.$store.getters["bookIthelp"];
-      return this.$store.getters["bookList"].filter((book) =>
-        book.name.includes("鐵人賽")
-      );
+      return this.$store.getters["ithelpBook"];
     },
   },
 };

@@ -12,12 +12,7 @@ export default {
   components: { BookList },
   computed: {
     books() {
-      // return this.$store.getters["bookDiscount30"];s
-      return this.$store.getters["bookList"].filter(
-        (book) =>
-          0.7 <= book.sellPrice / book.originPrice &&
-          book.sellPrice / book.originPrice < 0.8
-      );
+      return this.$store.getters["discount30Books"];
     },
   },
 };

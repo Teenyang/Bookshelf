@@ -10,22 +10,33 @@ export default new Vuex.Store({
     bookList: {},
   },
   getters: {
-    books: (state) => state.bookList,
-    bookList: (state) => state.bookList.list,
-    bookDiscount30: (state) =>
-      state.bookList.list.filter(
+    allBooks: (state) => state.bookList.list,
+    discountBooks: (state, getters) => (min, max) =>
+      getters.allBooks.filter(
         (book) =>
-          0.7 <= book.sellPrice / book.originPrice &&
-          book.sellPrice / book.originPrice < 0.8
+          min <= book.sellPrice / book.originPrice &&
+          book.sellPrice / book.originPrice < max
       ),
-    bookDiscount50: (state) =>
-      state.bookList.list.filter(
-        (book) =>
-          0.5 <= book.sellPrice / book.originPrice &&
-          book.sellPrice / book.originPrice < 0.6
-      ),
-    bookIthelp: (state) =>
-      state.bookList.list.filter((book) => book.name.includes("鐵人賽")),
+
+    discount30Books: (state, getters) => getters.discountBooks(0.7, 0.8),
+    discount50Books: (state, getters) => getters.discountBooks(0.5, 0.6),
+    ithelpBook: (state, getters) =>
+      getters["allBooks"].filter((book) => book.name.includes("鐵人賽")),
+
+    // discount30Books: (state) =>
+    //   state.bookList.list.filter(
+    //     (book) =>
+    //       0.7 <= book.sellPrice / book.originPrice &&
+    //       book.sellPrice / book.originPrice < 0.8
+    //   ),
+    // discount50Books: (state) =>
+    //   state.bookList.list.filter(
+    //     (book) =>
+    //       0.5 <= book.sellPrice / book.originPrice &&
+    //       book.sellPrice / book.originPrice < 0.6
+    //   ),
+    // ithelpBook: (state) =>
+    //   state.bookList.list.filter((book) => book.name.includes("鐵人賽")),
   },
   mutations: {
     bookList(state, books) {
