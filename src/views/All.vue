@@ -4,7 +4,7 @@
       navTitle="All"
       :bookList="books"
       :inputText="searchText"
-      @searchBook="searchText = $event.target.value"
+      @searchBook="searchBookName($event)"
     />
   </div>
 </template>
@@ -15,6 +15,11 @@ import BookList from "@/components/BookList.vue";
 export default {
   name: "All",
   components: { BookList },
+  created() {
+    if (this.$route.query.search) {
+      this.searchText = this.$route.query.search;
+    }
+  },
   data() {
     return {
       searchText: "",
@@ -26,6 +31,15 @@ export default {
       return this.$store.getters["allBooks"].filter((book) =>
         book.name.match(regex)
       );
+    },
+  },
+  methods: {
+    searchBookName(event) {
+      this.searchText = event.target.value;
+      this.$router.push({
+        name: this.$route.name, // ...this.$route,
+        query: { search: event.target.value },
+      });
     },
   },
 };
