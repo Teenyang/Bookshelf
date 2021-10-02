@@ -81,6 +81,7 @@ header {
   width: 100%;
   position: fixed;
   top: 0;
+  z-index: 10;
 }
 .my_navbar {
   background-color: $green;
