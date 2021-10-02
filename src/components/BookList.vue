@@ -10,7 +10,12 @@
         @input="$emit('searchBook', $event)"
       />
     </label>
-    <div class="bookshelf">
+    <button :class="[isShelf ? 'image_mode' : '']" @click="isShelf = !isShelf">
+      <template v-if="isShelf">顯示圖表</template>
+      <template v-else>顯示表格</template>
+    </button>
+
+    <div class="bookshelf" v-if="isShelf">
       <div class="book" v-for="book in bookList" :key="book.id">
         <img :src="book.image" alt="book image" />
         <p>
@@ -28,7 +33,32 @@
         <a :href="book.link" target="_blank">連結</a>
       </div>
     </div>
-    <button @click="scrollToTop">
+
+    <div class="booktable" v-else>
+      <table>
+        <thead>
+          <tr>
+            <th>ISBN</th>
+            <th class="book_name">書名</th>
+            <th>原價</th>
+            <th>特價</th>
+            <th>連結</th>
+            <th>圖片</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="book in bookList" :key="book.id">
+            <td>{{ book.ISBN }}</td>
+            <td>{{ book.name }}</td>
+            <td>{{ book.originPrice }}</td>
+            <td class="bargain">{{ book.sellPrice }}</td>
+            <td><a :href="book.link" target="_blank">連結</a></td>
+            <td><img :src="book.image" alt="book image" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <button class="button_top" @click="scrollToTop">
       <img src="@/assets/chevron-up.png" alt="Scroll To Top" />
     </button>
   </div>
@@ -51,6 +81,11 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      isShelf: true,
+    };
+  },
   methods: {
     scrollToTop() {
       window.scrollTo({
@@ -65,18 +100,40 @@ export default {
 <style lang="scss" scoped>
 .BookList {
   margin-top: 80px;
+
   h1 {
     margin-bottom: 20px;
   }
   & > p {
     margin-bottom: 20px;
   }
+  label {
+    display: block;
+  }
+  button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 6px;
+    background-color: $dark-green;
+    color: white;
+    font-weight: bold;
+
+    &:focus {
+      border: none;
+      outline: none;
+    }
+  }
+  .image_mode {
+    background-color: orange;
+    color: $dark-green;
+    font-weight: bold;
+  }
 
   input {
     border-radius: 6px;
   }
 
-  button {
+  .button_top {
     padding: 10px 0;
 
     position: fixed;
@@ -140,6 +197,54 @@ export default {
     &:hover {
       color: $light-green;
       text-decoration: none;
+    }
+  }
+}
+
+.booktable {
+  margin: 20px auto;
+
+  max-width: 90%;
+  height: 920px;
+  overflow-y: auto;
+
+  border: 3px solid $dark-green;
+
+  table {
+    position: relative;
+    width: 100%;
+
+    thead {
+      th {
+        width: 10%;
+        position: sticky;
+        top: -5px;
+        z-index: 5;
+
+        box-shadow: 0 -1px 0 0px inset;
+        background-color: $light-green;
+
+        word-break: keep-all;
+      }
+      .book_name {
+        width: 50%;
+      }
+    }
+
+    th,
+    td {
+      min-width: 100px;
+      padding: 20px;
+      border: 1px solid $dark-green;
+    }
+
+    td.bargain {
+      color: red;
+      font-weight: bold;
+    }
+
+    img {
+      max-width: 100px;
     }
   }
 }
