@@ -28,6 +28,9 @@
         <a :href="book.link" target="_blank">連結</a>
       </div>
     </div>
+    <button @click="scrollToTop">
+      <img src="@/assets/chevron-up.png" alt="Scroll To Top" />
+    </button>
   </div>
 </template>
 
@@ -48,6 +51,15 @@ export default {
       required: true,
     },
   },
+  methods: {
+    scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -62,6 +74,22 @@ export default {
 
   input {
     border-radius: 6px;
+  }
+
+  button {
+    padding: 10px 0;
+
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+
+    border: 3px solid #003f85;
+    border-radius: 6px;
+    background-color: white;
+
+    img {
+      width: 50%;
+    }
   }
 }
 .bookshelf {
