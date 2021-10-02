@@ -22,7 +22,6 @@ export default {
 <style lang="scss">
 #app {
   margin: 55px auto;
-  max-width: 1440px;
   min-width: 375px;
 
   font-family: Avenir, Helvetica, Arial, sans-serif;
