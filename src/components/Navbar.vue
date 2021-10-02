@@ -25,7 +25,8 @@
           </b-nav-item> -->
 
           <router-link :to="{ name: navItem.name }" class="nav-link">
-            {{ navItem.item }}
+            {{ $t(navItem.item) }}
+            <!-- {{ navItem.item }} -->
           </router-link>
         </b-navbar-nav>
 
@@ -42,9 +43,13 @@
             >
           </b-nav-form>
 
-          <b-nav-item-dropdown text="選擇語系" right>
-            <b-dropdown-item href="#">EN</b-dropdown-item>
-            <b-dropdown-item href="#">ZH</b-dropdown-item>
+          <b-nav-item-dropdown :text="$t('language.select')" right>
+            <b-dropdown-item href="#" @click="selectLanguage('en')">
+              {{ $t("language.en") }}
+            </b-dropdown-item>
+            <b-dropdown-item href="#" @click="selectLanguage('zh')">
+              {{ $t("language.zh") }}
+            </b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
         <b-button
@@ -66,12 +71,18 @@ export default {
   data() {
     return {
       navList: [
-        { id: 1, item: "全部書單", name: "All" },
-        { id: 2, item: "七折區", name: "Discount30" },
-        { id: 3, item: "五折區", name: "Discount50" },
-        { id: 4, item: "iT邦幫忙鐵人賽系列書", name: "Ithelp" },
+        { id: 1, item: "navItem.all", name: "All" },
+        { id: 2, item: "navItem.30off", name: "Discount30" },
+        { id: 3, item: "navItem.50off", name: "Discount50" },
+        { id: 4, item: "navItem.ithelp", name: "Ithelp" },
       ],
     };
+  },
+  methods: {
+    selectLanguage(language) {
+      this.$i18n.locale = language;
+      localStorage.setItem("locale", language);
+    },
   },
 };
 </script>
