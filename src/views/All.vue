@@ -6,6 +6,14 @@
       :inputText="searchText"
       @searchBook="searchBookName($event)"
     />
+    <!-- v-model example -->
+    <!-- <pre>{{ searchText }}</pre>
+    <BookList
+      navTitle="All"
+      :bookList="books"
+      v-model="searchText"
+      :inputText="searchText"
+    /> -->
   </div>
 </template>
 
@@ -23,6 +31,8 @@ export default {
   data() {
     return {
       searchText: "",
+      value: "",
+      inputText: "",
     };
   },
   computed: {

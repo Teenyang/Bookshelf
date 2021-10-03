@@ -9,6 +9,12 @@
         :value="inputText"
         @input="$emit('searchBook', $event)"
       />
+      <!-- v-model example -->
+      <!-- <input
+        type="text"
+        :value="inputText"
+        @change="$emit('input', $event.target.value)"
+      /> -->
     </label>
     <button :class="[isShelf ? 'image_mode' : '']" @click="isShelf = !isShelf">
       <template v-if="isShelf">顯示圖表</template>
