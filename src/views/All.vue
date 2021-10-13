@@ -4,7 +4,7 @@
       navTitle="All"
       :bookList="books"
       :inputText="searchText"
-      @searchBook="searchBookName($event)"
+      @searchBook="searchBookName"
     />
     <!-- v-model example -->
     <!-- <pre>{{ searchText }}</pre>
@@ -23,11 +23,18 @@ import BookList from "@/components/BookList.vue";
 export default {
   name: "All",
   components: { BookList },
-  created() {
-    if (this.$route.query.search) {
-      this.searchText = this.$route.query.search;
-    }
+  beforeRouterEnter(to, from, next) {
+    next((vm) => {
+      if (to.query.search) {
+        vm.searchText = to.query.search;
+      }
+    });
   },
+  // created() {
+  //   if (this.$route.query.search) {
+  //     this.searchText = this.$route.query.search;
+  //   }
+  // },
   data() {
     return {
       searchText: "",
@@ -35,6 +42,7 @@ export default {
       inputText: "",
     };
   },
+
   computed: {
     books() {
       const regex = new RegExp(this.searchText, "gi");
