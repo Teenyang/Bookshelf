@@ -1,11 +1,20 @@
 <template>
   <div class="All">
-    <BookList
+    <!-- <BookList
       navTitle="All"
       :bookList="books"
       :inputText="searchText"
-      @searchBook="searchBookName"
+      @searchBook="searchBook"
+    /> -->
+
+    <BookList
+      navTitle="All"
+      :bookList="books"
+      :keyword="searchText"
+      @update:keyword="searchBook"
     />
+    <!-- @update:keyword="searchText = $event.target.value" -->
+
     <!-- v-model example -->
     <!-- <pre>{{ searchText }}</pre>
     <BookList
@@ -23,7 +32,7 @@ import BookList from "@/components/BookList.vue";
 export default {
   name: "All",
   components: { BookList },
-  beforeRouterEnter(to, from, next) {
+  beforeRouteEnter(to, from, next) {
     next((vm) => {
       if (to.query.search) {
         vm.searchText = to.query.search;
@@ -38,8 +47,6 @@ export default {
   data() {
     return {
       searchText: "",
-      value: "",
-      inputText: "",
     };
   },
 
@@ -52,7 +59,7 @@ export default {
     },
   },
   methods: {
-    searchBookName(event) {
+    searchBook(event) {
       this.searchText = event.target.value;
       this.$router.push({
         name: this.$route.name, // ...this.$route,

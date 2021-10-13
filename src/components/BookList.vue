@@ -4,11 +4,17 @@
     <p>共計 {{ bookList.length }} 本書</p>
     <label
       >搜尋書本：
-      <input
+      <!-- <input
         type="text"
         :value="inputText"
         @input="$emit('searchBook', $event)"
+      /> -->
+      <input
+        type="text"
+        :value="keyword"
+        @input="$emit('update:keyword', $event)"
       />
+
       <!-- v-model example -->
       <!-- <input
         type="text"
@@ -74,7 +80,8 @@
 export default {
   name: "BookList",
   props: {
-    inputText: {
+    // inputText: {
+    keyword: {
       type: String,
       required: false,
     },
