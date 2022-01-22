@@ -6,21 +6,16 @@
       >搜尋書本：
       <!-- <input
         type="text"
-        :value="inputText"
-        @input="$emit('searchBook', $event)"
-      /> -->
-      <input
-        type="text"
         :value="keyword"
         @input="$emit('update:keyword', $event)"
-      />
+      /> -->
 
       <!-- v-model example -->
-      <!-- <input
+      <input
         type="text"
-        :value="inputText"
-        @change="$emit('input', $event.target.value)"
-      /> -->
+        :value="value"
+        @input="$emit('input', $event.target.value)"
+      />
     </label>
     <button :class="[isShelf ? 'image_mode' : '']" @click="isShelf = !isShelf">
       <template v-if="isShelf">顯示圖表</template>
@@ -80,8 +75,9 @@
 export default {
   name: "BookList",
   props: {
-    // inputText: {
-    keyword: {
+    value: {
+      // inputText: {
+      // keyword: {
       type: String,
       required: false,
     },

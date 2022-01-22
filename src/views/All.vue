@@ -3,26 +3,13 @@
     <!-- <BookList
       navTitle="All"
       :bookList="books"
-      :inputText="searchText"
-      @searchBook="searchBook"
-    /> -->
-
-    <BookList
-      navTitle="All"
-      :bookList="books"
       :keyword="searchText"
       @update:keyword="searchBook"
-    />
+    /> -->
     <!-- @update:keyword="searchText = $event.target.value" -->
 
     <!-- v-model example -->
-    <!-- <pre>{{ searchText }}</pre>
-    <BookList
-      navTitle="All"
-      :bookList="books"
-      v-model="searchText"
-      :inputText="searchText"
-    /> -->
+    <BookList navTitle="All" :bookList="books" v-model="searchText" />
   </div>
 </template>
 
