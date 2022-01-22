@@ -32,17 +32,6 @@
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto my_navbar_feature">
-          <b-nav-form>
-            <b-form-input
-              size="sm"
-              class="mr-sm-2"
-              placeholder="搜尋關鍵字"
-            ></b-form-input>
-            <b-button size="sm" class="my-2 my-sm-0" type="submit"
-              >搜尋</b-button
-            >
-          </b-nav-form>
-
           <b-nav-item-dropdown :text="$t('language.select')" right>
             <b-dropdown-item href="#" @click="selectLanguage('en')">
               {{ $t("language.en") }}
