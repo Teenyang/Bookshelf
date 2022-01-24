@@ -22,7 +22,6 @@
           </router-link>
         </b-navbar-nav>
 
-        <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto my_navbar_feature">
           <b-nav-item-dropdown :text="$t('language.select')" right>
             <b-dropdown-item href="#" @click="selectLanguage('en')">
@@ -69,6 +68,7 @@ export default {
 <style lang="scss" scoped>
 header {
   width: 100%;
+  max-width: 1440px;
   position: fixed;
   top: 0;
   z-index: 10;
@@ -114,13 +114,6 @@ header {
   }
 
   &_feature {
-    input {
-      &:focus {
-        border: $dark-green;
-        box-shadow: 0 0 0 2px $dark-green;
-      }
-    }
-
     .dropdown {
       li {
         text-align: center;

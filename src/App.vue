@@ -23,6 +23,7 @@ export default {
 #app {
   margin: 55px auto;
   min-width: 375px;
+  max-width: 1440px;
 
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
