@@ -53,6 +53,7 @@ export default {
       navList: [
         { id: 1, item: "navItem.all", name: "All" },
         { id: 2, item: "navItem.ithelp", name: "Ithelp" },
+        { id: 3, item: "navItem.tracking", name: "Tracking" },
       ],
     };
   },
