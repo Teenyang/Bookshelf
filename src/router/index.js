@@ -8,11 +8,6 @@ import All from "@/views/All.vue";
 import Ithelp from "@/views/Ithelp.vue";
 import Tracking from "@/views/Tracking.vue";
 
-import MemberPage from "@/components/MemberPage.vue";
-import Profile from "@/views/Profile.vue";
-import Collection from "@/views/Collection.vue";
-import Purchase from "@/views/Purchase.vue";
-
 Vue.use(VueRouter);
 
 const routes = [
@@ -48,33 +43,6 @@ const routes = [
         path: "tracking",
         name: "Tracking",
         component: Tracking,
-      },
-    ],
-  },
-  {
-    path: "/member",
-    // redirect: "/member/profile",
-    redirect: { name: "Profile" },
-    component: MemberPage,
-    beforeEnter: async (to, from, next) => {
-      await store.dispatch("fetchBookList");
-      next();
-    },
-    children: [
-      {
-        path: "profile",
-        name: "Profile",
-        component: Profile,
-      },
-      {
-        path: "collection",
-        name: "Collection",
-        component: Collection,
-      },
-      {
-        path: "collection/purchase/:bookName",
-        name: "Purchase",
-        component: Purchase,
       },
     ],
   },
