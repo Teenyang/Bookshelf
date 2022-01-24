@@ -17,10 +17,17 @@
         <div class="book" v-for="book in bookList" :key="book.id">
           <img :src="book.image" alt="book image" />
           <p>
-            {{ $t("book.originPrice") }}：<span>{{ book.originPrice }}</span> ｜
-            {{ $t("book.sellPrice") }}：<span class="bargain">{{
-              book.sellPrice
-            }}</span>
+            {{ $t("book.originPrice") }}：
+            <span class="book_origin_price">${{ book.originPrice }}</span>
+            <span class="book_discount"
+              >{{ discount(book.sellPrice, book.originPrice)[$i18n.locale]
+              }}{{ $t("book.percent") }}</span
+            >
+          </p>
+          <p>
+            {{ $t("book.sellPrice") }}：<span class="bargain"
+              >${{ book.sellPrice }}</span
+            >
           </p>
           <p>
             ISBN：<span>{{ book.ISBN }}</span>
@@ -39,6 +46,7 @@
               <th>ISBN</th>
               <th class="book_name">{{ $t("book.title") }}</th>
               <th>{{ $t("book.originPrice") }}</th>
+              <th>{{ $t("book.discount") }}</th>
               <th>{{ $t("book.sellPrice") }}</th>
               <th>{{ $t("book.link") }}</th>
               <th>{{ $t("book.image") }}</th>
@@ -48,8 +56,12 @@
             <tr v-for="book in bookList" :key="book.id">
               <td>{{ book.ISBN }}</td>
               <td>{{ book.name }}</td>
-              <td>{{ book.originPrice }}</td>
-              <td class="bargain">{{ book.sellPrice }}</td>
+              <td class="book_origin_price">${{ book.originPrice }}</td>
+              <td class="book_discount">
+                {{ discount(book.sellPrice, book.originPrice)[$i18n.locale]
+                }}{{ $t("book.percent") }}
+              </td>
+              <td class="bargain">${{ book.sellPrice }}</td>
               <td>
                 <a :href="book.link" target="_blank">{{ $t("book.link") }}</a>
               </td>
@@ -91,6 +103,13 @@ export default {
         left: 0,
         behavior: "smooth",
       });
+    },
+    discount(sell, origin) {
+      const bargain = (sell / origin) * 100;
+      return {
+        en: Math.floor(100 - bargain),
+        zh: bargain % 10 === 0 ? bargain / 10 : Math.ceil(bargain),
+      };
     },
   },
 };
@@ -164,6 +183,11 @@ export default {
   display: flex;
   flex-direction: column;
 
+  &_origin_price {
+    margin-right: 10px;
+    text-decoration: 2px line-through;
+  }
+
   img {
     margin-bottom: 20px;
     height: 200px;
@@ -172,6 +196,8 @@ export default {
   span {
     font-weight: bold;
   }
+
+  &_discount,
   .bargain {
     color: red;
   }

@@ -12,6 +12,7 @@
     "originPrice": "Origin Price",
     "sellPrice": "Sell Price",
     "discount": "Discount",
+    "percent": "%OFF",
     "title": "Title",
     "image": "Image",
     "link": "Link"
