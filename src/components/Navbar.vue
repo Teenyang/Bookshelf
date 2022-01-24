@@ -17,17 +17,8 @@
           v-for="navItem in navList"
           :key="navItem.id"
         >
-          <!-- <b-nav-item
-            href="#"
-            @click="$router.push(navItem.name).catch((error) => error)"
-            :class="[$route.name === navItem.name ? 'current_route' : '']"
-          >
-            {{ navItem.item }}
-          </b-nav-item> -->
-
           <router-link :to="{ name: navItem.name }" class="nav-link">
             {{ $t(navItem.item) }}
-            <!-- {{ navItem.item }} -->
           </router-link>
         </b-navbar-nav>
 
@@ -83,6 +74,7 @@ header {
   z-index: 10;
 }
 .my_navbar {
+  padding: 0 1rem;
   background-color: $green;
 
   .logo {
@@ -107,26 +99,13 @@ header {
     color: red;
   }
 
-  .current_route {
-    position: relative;
-    &:after {
-      content: "";
-      position: absolute;
-      bottom: -8px;
-
-      width: 100%;
-      height: 5px;
-      background-color: red;
-    }
-  }
-
   .router-link-exact-active {
     position: relative;
     &:after {
       content: "";
       position: absolute;
       left: 0;
-      bottom: -8px;
+      bottom: -5px;
 
       width: 100%;
       height: 5px;
