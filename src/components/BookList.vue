@@ -5,13 +5,13 @@
 
     <template v-if="bookList.length > 0">
       <p>{{ $t("book.total") }}：{{ bookList.length }}</p>
-      <button
-        :class="[isGallery ? 'gallery_mode' : '']"
+      <b-button
+        :variant="isGallery ? 'primary' : 'danger'"
         @click="isGallery = !isGallery"
       >
         <template v-if="isGallery">{{ $t("book.table") }}</template>
         <template v-else>{{ $t("book.gallery") }}</template>
-      </button>
+      </b-button>
 
       <div class="gallery_view" v-if="isGallery">
         <b-container fluid="xl">
@@ -44,7 +44,27 @@
               <p>
                 <span>{{ book.name }}</span>
               </p>
-              <a :href="book.link" target="_blank">{{ $t("book.link") }}</a>
+              <div class="list_footer">
+                <b-button :href="book.link" target="_blank" variant="secondary">
+                  {{ $t("book.link") }}
+                </b-button>
+
+                <template v-if="isTracking(book.ISBN)">
+                  <b-button @click="untrackBook(book)" variant="warning">
+                    <b-icon icon="star-fill" aria-hidden="true" class="mr-2">
+                    </b-icon>
+                    <span>{{ $t("book.untracked") }}</span>
+                  </b-button>
+                </template>
+
+                <template v-else>
+                  <b-button @click="trackBook(book)" variant="secondary">
+                    <b-icon icon="star" aria-hidden="true" class="mr-2">
+                    </b-icon>
+                    <span>{{ $t("book.tracking") }}</span>
+                  </b-button>
+                </template>
+              </div>
             </b-col>
           </b-row>
         </b-container>
@@ -52,12 +72,29 @@
 
       <div class="table_view" v-else>
         <b-table hover bordered sortable :items="bookList" :fields="fields">
+          <template #head(track)>{{ $t("book.track") }}</template>
           <template #head(name)>{{ $t("book.title") }}</template>
           <template #head(originPrice)>{{ $t("book.originPrice") }}</template>
           <template #head(discount)>{{ $t("book.discount") }}</template>
           <template #head(sellPrice)>{{ $t("book.sellPrice") }}</template>
           <template #head(link)>{{ $t("book.link") }}</template>
           <template #head(image)>{{ $t("book.image") }}</template>
+
+          <template #cell(track)="{ item }">
+            <template v-if="isTracking(item.ISBN)">
+              <b-icon
+                @click="untrackBook(item)"
+                icon="star-fill"
+                aria-hidden="true"
+                variant="warning"
+              >
+              </b-icon>
+            </template>
+            <template v-else>
+              <b-icon @click="trackBook(item)" icon="star" aria-hidden="true">
+              </b-icon>
+            </template>
+          </template>
 
           <template #cell(originPrice)="{ item }">
             ${{ item.originPrice }}
@@ -98,14 +135,27 @@ export default {
       required: true,
     },
   },
+  created() {
+    this.trackingList =
+      JSON.parse(localStorage.getItem("Tenlong_tracking")) || [];
+    console.log("this.trackingList: ", this.trackingList);
+  },
   data() {
     return {
       isGallery: true,
+      trackingList: [],
     };
   },
   computed: {
     fields() {
       return [
+        {
+          key: "track",
+          label: "track",
+          thStyle: {
+            width: "5em",
+          },
+        },
         {
           key: "ISBN",
           label: "ISBN",
@@ -177,33 +227,42 @@ export default {
             : Math.ceil(bargain),
       };
     },
+    isTracking(bookISBN) {
+      return this.trackingList.some((list) => list.ISBN === bookISBN);
+    },
+    trackBook(book) {
+      this.trackingList = [...this.trackingList, book];
+      console.log(this.trackingList);
+      localStorage.setItem(
+        "Tenlong_tracking",
+        JSON.stringify(this.trackingList)
+      );
+    },
+    untrackBook(book) {
+      const untrackIndex = this.trackingList.findIndex(
+        (list) => list.ISBN === book.ISBN
+      );
+      this.trackingList.splice(untrackIndex, 1);
+      localStorage.setItem(
+        "Tenlong_tracking",
+        JSON.stringify(this.trackingList)
+      );
+    },
   },
 };
 </script>
+
 <style lang="scss" scoped>
 .BookList {
   margin-top: 80px;
 
-  button {
-    margin: 0 auto;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 6px;
-
-    display: block;
-    background-color: $dark-green;
-    color: white;
-    font-weight: bold;
-
-    &:focus {
-      border: none;
-      outline: none;
-    }
+  .btn {
+    font-weight: 600;
   }
-  .gallery_mode {
-    background-color: orange;
-    color: $dark-green;
-    font-weight: bold;
+  .b-icon {
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   input {
@@ -261,19 +320,21 @@ export default {
     color: red;
   }
 
-  a {
+  .list_footer {
     margin-top: auto;
-    padding: 5px;
-    border: 1px solid $dark-green;
-    border-radius: 5px;
-    background-color: $dark-green;
 
-    color: #fff;
-    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
 
-    &:hover {
-      color: $light-green;
-      text-decoration: none;
+    & > * {
+      width: 100%;
+    }
+
+    button {
+      & > * {
+        vertical-align: middle;
+      }
     }
   }
 }
@@ -282,14 +343,15 @@ export default {
   margin: 20px auto;
 
   max-width: 90%;
-  height: 920px;
+  max-height: 920px;
   overflow-y: auto;
 
   border: 3px solid $dark-green;
 
   table {
-    position: relative;
+    margin-bottom: 0;
     width: 100%;
+    position: relative;
 
     ::v-deep thead {
       th {
