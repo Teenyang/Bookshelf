@@ -2,10 +2,11 @@
   <header>
     <b-navbar toggleable="lg" type="light" class="my_navbar">
       <b-navbar-brand
+        class="logo"
         href="#"
         @click="$router.push('/').catch((error) => error)"
       >
-        天瓏書單
+        {{ $t("navItem.tenlong") }}
       </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -83,6 +84,11 @@ header {
 }
 .my_navbar {
   background-color: $green;
+
+  .logo {
+    font-size: 28px;
+    text-transform: uppercase;
+  }
 
   .navbar-toggler {
     border: 1px solid $dark-green;
