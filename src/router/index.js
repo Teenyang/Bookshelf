@@ -15,19 +15,11 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
-    beforeEnter: async (to, from, next) => {
-      await store.dispatch("fetchBookList");
-      next();
-    },
   },
   {
     path: "/book",
     redirect: { name: "All" },
     component: MainPage,
-    beforeEnter: async (to, from, next) => {
-      await store.dispatch("fetchBookList");
-      next();
-    },
     children: [
       {
         path: "all",
@@ -57,9 +49,9 @@ const router = new VueRouter({
   },
 });
 
-// router.beforeEach(async (to, from, next) => {
-//   await store.dispatch("fetchBookList");
-//   next();
-// });
+router.beforeEach(async (to, from, next) => {
+  await store.dispatch("fetchBookList");
+  next();
+});
 
 export default router;
