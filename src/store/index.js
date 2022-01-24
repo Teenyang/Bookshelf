@@ -8,6 +8,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     bookList: {},
+    trackingList: [],
   },
   getters: {
     allBooks: (state) => state.bookList.list,
@@ -23,10 +24,15 @@ export default new Vuex.Store({
 
     // ithelpBook: (state) =>
     //   state.bookList.list.filter((book) => book.name.includes("鐵人賽")),
+
+    trackingList: (state) => state.trackingList,
   },
   mutations: {
     bookList(state, books) {
       state.bookList = books;
+    },
+    trackingList(state, books) {
+      state.trackingList = books;
     },
   },
   actions: {

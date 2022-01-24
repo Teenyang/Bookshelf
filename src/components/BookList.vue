@@ -136,17 +136,20 @@ export default {
     },
   },
   created() {
-    this.trackingList =
-      JSON.parse(localStorage.getItem("Tenlong_tracking")) || [];
-    console.log("this.trackingList: ", this.trackingList);
+    this.$store.commit(
+      "trackingList",
+      JSON.parse(localStorage.getItem("TenlongList")) || []
+    );
   },
   data() {
     return {
       isGallery: true,
-      trackingList: [],
     };
   },
   computed: {
+    trackingList() {
+      return this.$store.getters["trackingList"];
+    },
     fields() {
       return [
         {
@@ -231,22 +234,20 @@ export default {
       return this.trackingList.some((list) => list.ISBN === bookISBN);
     },
     trackBook(book) {
-      this.trackingList = [...this.trackingList, book];
-      console.log(this.trackingList);
-      localStorage.setItem(
-        "Tenlong_tracking",
-        JSON.stringify(this.trackingList)
-      );
+      // console.log("add: ", book.ISBN);
+      this.$store.commit("trackingList", [...this.trackingList, book]);
+      localStorage.setItem("TenlongList", JSON.stringify(this.trackingList));
     },
     untrackBook(book) {
+      // console.log("remove: ", book.ISBN);
       const untrackIndex = this.trackingList.findIndex(
         (list) => list.ISBN === book.ISBN
       );
-      this.trackingList.splice(untrackIndex, 1);
-      localStorage.setItem(
-        "Tenlong_tracking",
-        JSON.stringify(this.trackingList)
-      );
+      this.$store.commit("trackingList", [
+        ...this.trackingList.slice(0, untrackIndex),
+        ...this.trackingList.slice(untrackIndex + 1),
+      ]);
+      localStorage.setItem("TenlongList", JSON.stringify(this.trackingList));
     },
   },
 };

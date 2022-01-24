@@ -1,6 +1,6 @@
 <template>
-  <div class="All">
-    <BookList navTitle="tracking" :bookList="books" />
+  <div class="Tracking">
+    <BookList navTitle="tracking" :bookList="trackingList" />
   </div>
 </template>
 
@@ -8,11 +8,11 @@
 import BookList from "@/components/BookList.vue";
 
 export default {
-  name: "All",
+  name: "Tracking",
   components: { BookList },
   computed: {
-    books() {
-      return JSON.parse(localStorage.getItem("Tenlong_tracking")) || [];
+    trackingList() {
+      return this.$store.getters["trackingList"];
     },
   },
 };
