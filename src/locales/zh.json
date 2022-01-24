@@ -4,6 +4,18 @@
     "all": "全部書單",
     "ithelp": "iT邦幫忙鐵人賽系列書"
   },
+  "book": {
+    "search": "搜尋書名",
+    "total": "總計本數",
+    "gallery": "圖庫模式",
+    "table": "表格模式",
+    "originPrice": "原價",
+    "sellPrice": "特價",
+    "discount": "折扣",
+    "title": "書名",
+    "image": "圖片",
+    "link": "連結"
+  },
   "language": {
     "select": "選擇語系",
     "zh": "中文",

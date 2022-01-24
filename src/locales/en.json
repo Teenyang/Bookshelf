@@ -4,6 +4,18 @@
     "all": "All Book Lists",
     "ithelp": "IThome Ironman Series"
   },
+  "book": {
+    "search": "Search Book Title",
+    "total": "Total lists",
+    "gallery": "Gallery View",
+    "table": "Table View",
+    "originPrice": "Origin Price",
+    "sellPrice": "Sell Price",
+    "discount": "Discount",
+    "title": "Title",
+    "image": "Image",
+    "link": "Link"
+  },
   "language": {
     "select": "Language",
     "zh": "Chinese",

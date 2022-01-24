@@ -4,23 +4,23 @@
     <slot />
 
     <template v-if="bookList.length > 0">
-      <p>共計 {{ bookList.length }} 本書</p>
+      <p>{{ $t("book.total") }}：{{ bookList.length }}</p>
       <button
-        :class="[isShelf ? 'image_mode' : '']"
-        @click="isShelf = !isShelf"
+        :class="[isGallery ? 'gallery_mode' : '']"
+        @click="isGallery = !isGallery"
       >
-        <template v-if="isShelf">顯示圖表</template>
-        <template v-else>顯示表格</template>
+        <template v-if="isGallery">{{ $t("book.table") }}</template>
+        <template v-else>{{ $t("book.gallery") }}</template>
       </button>
 
-      <div class="bookshelf" v-if="isShelf">
+      <div class="gallery_view" v-if="isGallery">
         <div class="book" v-for="book in bookList" :key="book.id">
           <img :src="book.image" alt="book image" />
           <p>
-            原價：<span>{{ book.originPrice }}</span> ｜ 特價：<span
-              class="bargain"
-              >{{ book.sellPrice }}</span
-            >
+            {{ $t("book.originPrice") }}：<span>{{ book.originPrice }}</span> ｜
+            {{ $t("book.sellPrice") }}：<span class="bargain">{{
+              book.sellPrice
+            }}</span>
           </p>
           <p>
             ISBN：<span>{{ book.ISBN }}</span>
@@ -28,20 +28,20 @@
           <p>
             <span>{{ book.name }}</span>
           </p>
-          <a :href="book.link" target="_blank">連結</a>
+          <a :href="book.link" target="_blank">{{ $t("book.link") }}</a>
         </div>
       </div>
 
-      <div class="booktable" v-else>
+      <div class="table_view" v-else>
         <table>
           <thead>
             <tr>
               <th>ISBN</th>
-              <th class="book_name">書名</th>
-              <th>原價</th>
-              <th>特價</th>
-              <th>連結</th>
-              <th>圖片</th>
+              <th class="book_name">{{ $t("book.title") }}</th>
+              <th>{{ $t("book.originPrice") }}</th>
+              <th>{{ $t("book.sellPrice") }}</th>
+              <th>{{ $t("book.link") }}</th>
+              <th>{{ $t("book.image") }}</th>
             </tr>
           </thead>
           <tbody>
@@ -50,7 +50,9 @@
               <td>{{ book.name }}</td>
               <td>{{ book.originPrice }}</td>
               <td class="bargain">{{ book.sellPrice }}</td>
-              <td><a :href="book.link" target="_blank">連結</a></td>
+              <td>
+                <a :href="book.link" target="_blank">{{ $t("book.link") }}</a>
+              </td>
               <td><img :src="book.image" alt="book image" /></td>
             </tr>
           </tbody>
@@ -79,7 +81,7 @@ export default {
   },
   data() {
     return {
-      isShelf: true,
+      isGallery: true,
     };
   },
   methods: {
@@ -113,7 +115,7 @@ export default {
       outline: none;
     }
   }
-  .image_mode {
+  .gallery_mode {
     background-color: orange;
     color: $dark-green;
     font-weight: bold;
@@ -139,7 +141,7 @@ export default {
     }
   }
 }
-.bookshelf {
+.gallery_view {
   margin-top: 20px;
   padding: 0 40px;
   display: grid;
@@ -191,7 +193,7 @@ export default {
   }
 }
 
-.booktable {
+.table_view {
   margin: 20px auto;
 
   max-width: 90%;

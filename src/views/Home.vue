@@ -2,7 +2,7 @@
   <div class="Home">
     <BookList navTitle="tenlong" :bookList="searchText ? books : []">
       <label
-        >搜尋書本：
+        >{{ $t("book.search") }}：
         <input type="text" v-model="searchText" />
       </label>
     </BookList>
