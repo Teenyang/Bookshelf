@@ -5,8 +5,6 @@ import store from "@/store/index.js";
 
 import MainPage from "@/components/MainPage.vue";
 import All from "@/views/All.vue";
-import Discount30 from "@/views/Discount30.vue";
-import Discount50 from "@/views/Discount50.vue";
 import Ithelp from "@/views/Ithelp.vue";
 
 import MemberPage from "@/components/MemberPage.vue";
@@ -48,16 +46,6 @@ const routes = [
         path: "all",
         name: "All",
         component: All,
-      },
-      {
-        path: "discount-30",
-        name: "Discount30",
-        component: Discount30,
-      },
-      {
-        path: "discount-50",
-        name: "Discount50",
-        component: Discount50,
       },
       {
         path: "ithelp",

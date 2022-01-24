@@ -61,9 +61,7 @@ export default {
     return {
       navList: [
         { id: 1, item: "navItem.all", name: "All" },
-        { id: 2, item: "navItem.30off", name: "Discount30" },
-        { id: 3, item: "navItem.50off", name: "Discount50" },
-        { id: 4, item: "navItem.ithelp", name: "Ithelp" },
+        { id: 2, item: "navItem.ithelp", name: "Ithelp" },
       ],
     };
   },
