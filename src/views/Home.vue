@@ -1,18 +1,48 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div class="Home">
+    <BookList navTitle="天瓏書單" :bookList="searchText ? books : []">
+      <label
+        >搜尋書本：
+        <input type="text" v-model="searchText" />
+      </label>
+    </BookList>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import BookList from "@/components/BookList.vue";
 
 export default {
   name: "Home",
   components: {
-    HelloWorld,
+    BookList,
+  },
+
+  data() {
+    return {
+      searchText: "",
+    };
+  },
+
+  computed: {
+    books() {
+      const regex = new RegExp(this.searchText, "gi");
+      return this.$store.getters["allBooks"].filter((book) =>
+        book.name.match(regex)
+      );
+    },
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.Home {
+  label {
+    margin-bottom: 20px;
+    // display: block;
+
+    font-size: 20px;
+    font-weight: 600;
+  }
+}
+</style>

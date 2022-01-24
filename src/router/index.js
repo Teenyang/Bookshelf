@@ -21,6 +21,10 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+    beforeEnter: async (to, from, next) => {
+      await store.dispatch("fetchBookList");
+      next();
+    },
   },
   {
     path: "/about",
