@@ -1,6 +1,6 @@
 <template>
   <div class="All">
-    <BookList navTitle="All" :bookList="books" />
+    <BookList navTitle="all" :bookList="books" />
   </div>
 </template>
 

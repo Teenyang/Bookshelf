@@ -1,6 +1,6 @@
 <template>
   <div class="BookList">
-    <h1>{{ navTitle }}</h1>
+    <h1>{{ $t(`navItem.${navTitle}`) }}</h1>
     <slot />
 
     <template v-if="bookList.length > 0">

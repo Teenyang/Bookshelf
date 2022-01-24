@@ -1,6 +1,6 @@
 <template>
   <div class="Home">
-    <BookList navTitle="天瓏書單" :bookList="searchText ? books : []">
+    <BookList navTitle="tenlong" :bookList="searchText ? books : []">
       <label
         >搜尋書本：
         <input type="text" v-model="searchText" />
