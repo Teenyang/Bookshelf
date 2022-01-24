@@ -171,7 +171,10 @@ export default {
       const bargain = (sell / origin) * 100;
       return {
         en: Math.floor(100 - bargain),
-        zh: bargain % 10 === 0 ? bargain / 10 : Math.ceil(bargain),
+        zh:
+          Math.ceil(bargain) % 10 === 0
+            ? Math.ceil(bargain) / 10
+            : Math.ceil(bargain),
       };
     },
   },
