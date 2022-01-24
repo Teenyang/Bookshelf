@@ -16,5 +16,8 @@ Vue.use(FormInputPlugin);
 import { LayoutPlugin } from "bootstrap-vue";
 Vue.use(LayoutPlugin);
 
+import { TablePlugin } from "bootstrap-vue";
+Vue.use(TablePlugin);
+
 import { BButton } from "bootstrap-vue";
 Vue.component("b-button", BButton);

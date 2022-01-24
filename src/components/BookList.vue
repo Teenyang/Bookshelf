@@ -51,35 +51,31 @@
       </div>
 
       <div class="table_view" v-else>
-        <table>
-          <thead>
-            <tr>
-              <th>ISBN</th>
-              <th class="book_name">{{ $t("book.title") }}</th>
-              <th>{{ $t("book.originPrice") }}</th>
-              <th>{{ $t("book.discount") }}</th>
-              <th>{{ $t("book.sellPrice") }}</th>
-              <th>{{ $t("book.link") }}</th>
-              <th>{{ $t("book.image") }}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="book in bookList" :key="book.id">
-              <td>{{ book.ISBN }}</td>
-              <td>{{ book.name }}</td>
-              <td class="book_origin_price">${{ book.originPrice }}</td>
-              <td class="book_discount">
-                {{ discount(book.sellPrice, book.originPrice)[$i18n.locale]
-                }}{{ $t("book.percent") }}
-              </td>
-              <td class="bargain">${{ book.sellPrice }}</td>
-              <td>
-                <a :href="book.link" target="_blank">{{ $t("book.link") }}</a>
-              </td>
-              <td><img :src="book.image" alt="book image" /></td>
-            </tr>
-          </tbody>
-        </table>
+        <b-table hover bordered sortable :items="bookList" :fields="fields">
+          <template #head(name)>{{ $t("book.title") }}</template>
+          <template #head(originPrice)>{{ $t("book.originPrice") }}</template>
+          <template #head(discount)>{{ $t("book.discount") }}</template>
+          <template #head(sellPrice)>{{ $t("book.sellPrice") }}</template>
+          <template #head(link)>{{ $t("book.link") }}</template>
+          <template #head(image)>{{ $t("book.image") }}</template>
+
+          <template #cell(originPrice)="{ item }">
+            ${{ item.originPrice }}
+          </template>
+          <template #cell(discount)="{ item }">
+            {{ discount(item.sellPrice, item.originPrice)[$i18n.locale]
+            }}{{ $t("book.percent") }}
+          </template>
+          <template #cell(sellPrice)="{ item }">
+            ${{ item.sellPrice }}
+          </template>
+          <template #cell(link)="{ item }">
+            <a :href="item.link" target="_blank">{{ $t("book.link") }}</a>
+          </template>
+          <template #cell(image)="{ item }">
+            <img :src="item.image" alt="book image" />
+          </template>
+        </b-table>
       </div>
 
       <button class="button_top" @click="scrollToTop">
@@ -106,6 +102,62 @@ export default {
     return {
       isGallery: true,
     };
+  },
+  computed: {
+    fields() {
+      return [
+        {
+          key: "ISBN",
+          label: "ISBN",
+          thStyle: {
+            width: "10em",
+          },
+        },
+        {
+          key: "name",
+          label: "書名",
+        },
+        {
+          key: "originPrice",
+          label: "售價",
+          thStyle: {
+            width: "8em",
+          },
+          tdClass: "origin_price",
+        },
+        {
+          key: "discount",
+          label: "折扣",
+          sortable: true,
+          thStyle: {
+            width: "8em",
+          },
+          tdClass: "bargain",
+        },
+        {
+          key: "sellPrice",
+          label: "特價",
+          thStyle: {
+            width: "8em",
+          },
+          tdClass: "bargain",
+        },
+        {
+          key: "link",
+          label: "連結",
+          thStyle: {
+            width: "5em",
+          },
+        },
+        {
+          key: "image",
+          label: "圖片",
+          thStyle: {
+            width: "10em",
+          },
+        },
+      ];
+    },
   },
   methods: {
     scrollToTop() {
@@ -168,6 +220,10 @@ export default {
 
     img {
       width: 50%;
+    }
+
+    &:focus {
+      border: 3px solid #003f85;
     }
   }
 }
@@ -232,16 +288,15 @@ export default {
     position: relative;
     width: 100%;
 
-    thead {
+    ::v-deep thead {
       th {
-        width: 10%;
         position: sticky;
         top: -5px;
         z-index: 5;
 
-        box-shadow: 0 -1px 0 0px inset;
-        background-color: $light-green;
-
+        box-shadow: 0 -2px 0 0px inset;
+        background-color: $dark-green;
+        color: #fff;
         word-break: keep-all;
       }
       .book_name {
@@ -249,16 +304,16 @@ export default {
       }
     }
 
-    th,
-    td {
-      min-width: 100px;
-      padding: 20px;
-      border: 1px solid $dark-green;
-    }
+    ::v-deep td {
+      vertical-align: middle;
 
-    td.bargain {
-      color: red;
-      font-weight: bold;
+      &.bargain {
+        color: red;
+        font-weight: bold;
+      }
+      &.origin_price {
+        text-decoration: 2px line-through;
+      }
     }
 
     img {
