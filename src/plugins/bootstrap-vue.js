@@ -13,5 +13,8 @@ Vue.use(NavbarPlugin);
 import { FormInputPlugin } from "bootstrap-vue";
 Vue.use(FormInputPlugin);
 
+import { LayoutPlugin } from "bootstrap-vue";
+Vue.use(LayoutPlugin);
+
 import { BButton } from "bootstrap-vue";
 Vue.component("b-button", BButton);

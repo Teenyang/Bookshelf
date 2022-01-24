@@ -14,29 +14,40 @@
       </button>
 
       <div class="gallery_view" v-if="isGallery">
-        <div class="book" v-for="book in bookList" :key="book.id">
-          <img :src="book.image" alt="book image" />
-          <p>
-            {{ $t("book.originPrice") }}：
-            <span class="book_origin_price">${{ book.originPrice }}</span>
-            <span class="book_discount"
-              >{{ discount(book.sellPrice, book.originPrice)[$i18n.locale]
-              }}{{ $t("book.percent") }}</span
+        <b-container fluid="xl">
+          <b-row>
+            <b-col
+              cols="12"
+              md="6"
+              lg="4"
+              class="book"
+              v-for="book in bookList"
+              :key="book.id"
             >
-          </p>
-          <p>
-            {{ $t("book.sellPrice") }}：<span class="bargain"
-              >${{ book.sellPrice }}</span
-            >
-          </p>
-          <p>
-            ISBN：<span>{{ book.ISBN }}</span>
-          </p>
-          <p>
-            <span>{{ book.name }}</span>
-          </p>
-          <a :href="book.link" target="_blank">{{ $t("book.link") }}</a>
-        </div>
+              <img :src="book.image" alt="book image" />
+              <p>
+                {{ $t("book.originPrice") }}：
+                <span class="book_origin_price">${{ book.originPrice }}</span>
+                <span class="book_discount"
+                  >{{ discount(book.sellPrice, book.originPrice)[$i18n.locale]
+                  }}{{ $t("book.percent") }}</span
+                >
+              </p>
+              <p>
+                {{ $t("book.sellPrice") }}：<span class="bargain"
+                  >${{ book.sellPrice }}</span
+                >
+              </p>
+              <p>
+                ISBN：<span>{{ book.ISBN }}</span>
+              </p>
+              <p>
+                <span>{{ book.name }}</span>
+              </p>
+              <a :href="book.link" target="_blank">{{ $t("book.link") }}</a>
+            </b-col>
+          </b-row>
+        </b-container>
       </div>
 
       <div class="table_view" v-else>
@@ -163,17 +174,6 @@ export default {
 .gallery_view {
   margin-top: 20px;
   padding: 0 40px;
-  display: grid;
-  grid-template-columns: max(100%);
-  justify-content: center;
-  gap: 30px;
-
-  @media (min-width: 576px) {
-    grid-template-columns: repeat(2, minmax(250px, 400px));
-  }
-  @media (min-width: 992px) {
-    grid-template-columns: repeat(3, minmax(250px, 400px));
-  }
 }
 .book {
   padding: 20px;
