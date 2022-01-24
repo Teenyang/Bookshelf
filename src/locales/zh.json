@@ -2,7 +2,8 @@
   "navItem": {
     "tenlong": "天瓏書單",
     "all": "全部書單",
-    "ithelp": "iT邦幫忙鐵人賽系列書"
+    "ithelp": "iT邦幫忙鐵人賽系列書",
+    "tracking": "追蹤清單"
   },
   "book": {
     "search": "搜尋書名",
@@ -15,7 +16,10 @@
     "percent": "折",
     "title": "書名",
     "image": "圖片",
-    "link": "連結"
+    "link": "連結",
+    "track": "追蹤",
+    "tracking": "加入追蹤",
+    "untracked": "取消追蹤"
   },
   "language": {
     "select": "選擇語系",

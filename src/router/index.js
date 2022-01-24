@@ -6,6 +6,7 @@ import store from "@/store/index.js";
 import MainPage from "@/components/MainPage.vue";
 import All from "@/views/All.vue";
 import Ithelp from "@/views/Ithelp.vue";
+import Tracking from "@/views/Tracking.vue";
 
 import MemberPage from "@/components/MemberPage.vue";
 import Profile from "@/views/Profile.vue";
@@ -42,6 +43,11 @@ const routes = [
         path: "ithelp",
         name: "Ithelp",
         component: Ithelp,
+      },
+      {
+        path: "tracking",
+        name: "Tracking",
+        component: Tracking,
       },
     ],
   },

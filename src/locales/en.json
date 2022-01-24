@@ -2,7 +2,8 @@
   "navItem": {
     "tenlong": "Tenlong",
     "all": "All Book Lists",
-    "ithelp": "IThome Ironman Series"
+    "ithelp": "IThome Ironman Series",
+    "tracking": "Tracking Lists"
   },
   "book": {
     "search": "Search Book Title",
@@ -15,7 +16,10 @@
     "percent": "%OFF",
     "title": "Title",
     "image": "Image",
-    "link": "Link"
+    "link": "Link",
+    "track": "Track",
+    "tracking": "Tracking",
+    "untracked": "Untracked"
   },
   "language": {
     "select": "Language",
