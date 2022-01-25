@@ -1,6 +1,6 @@
 <template>
   <div class="Home">
-    <BookList navTitle="tenlong" :bookList="searchText ? books : []">
+    <BookList navTitle="tenlongInGoodideas" :bookList="searchText ? books : []">
       <label
         >{{ $t("book.search") }}：
         <input type="text" v-model="searchText" />
@@ -39,10 +39,14 @@ export default {
 .Home {
   label {
     margin-bottom: 20px;
-    // display: block;
 
     font-size: 20px;
     font-weight: 600;
+  }
+
+  input {
+    padding: 4px 8px;
+    border-radius: 6px;
   }
 }
 </style>
