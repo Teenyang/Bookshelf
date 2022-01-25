@@ -1,0 +1,182 @@
+<template>
+  <div class="TableMode">
+    <b-table hover bordered sortable :items="data" :fields="fields">
+      <template #head(track)>{{ $t("book.track") }}</template>
+      <template #head(name)>{{ $t("book.title") }}</template>
+      <template #head(originPrice)>{{ $t("book.originPrice") }}</template>
+      <template #head(discount)>{{ $t("book.discount") }}</template>
+      <template #head(sellPrice)>{{ $t("book.sellPrice") }}</template>
+      <template #head(link)>{{ $t("book.link") }}</template>
+      <template #head(image)>{{ $t("book.image") }}</template>
+
+      <template #cell(track)="{ item }">
+        <template v-if="isTracking(item.ISBN)">
+          <b-icon
+            @click="$emit('track', item)"
+            icon="star-fill"
+            aria-hidden="true"
+            variant="warning"
+          >
+          </b-icon>
+        </template>
+        <template v-else>
+          <b-icon @click="$emit('track', item)" icon="star" aria-hidden="true">
+          </b-icon>
+        </template>
+      </template>
+
+      <template #cell(originPrice)="{ item }">
+        ${{ item.originPrice }}
+      </template>
+      <template #cell(discount)="{ item }">
+        {{ discount(item.sellPrice, item.originPrice)[$i18n.locale]
+        }}{{ $t("book.percent") }}
+      </template>
+      <template #cell(sellPrice)="{ item }"> ${{ item.sellPrice }} </template>
+      <template #cell(link)="{ item }">
+        <a :href="item.link" target="_blank">{{ $t("book.link") }}</a>
+      </template>
+      <template #cell(image)="{ item }">
+        <img :src="item.image" alt="book image" />
+      </template>
+    </b-table>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "TableMode",
+  props: {
+    data: {
+      type: Array,
+      required: true,
+    },
+    trackingList: {
+      type: Array,
+      required: true,
+    },
+  },
+  computed: {
+    fields() {
+      return [
+        {
+          key: "track",
+          label: "track",
+          thStyle: {
+            width: "5em",
+          },
+        },
+        {
+          key: "ISBN",
+          label: "ISBN",
+          thStyle: {
+            width: "10em",
+          },
+        },
+        {
+          key: "name",
+          label: "書名",
+        },
+        {
+          key: "originPrice",
+          label: "售價",
+          thStyle: {
+            width: "8em",
+          },
+          tdClass: "origin_price",
+        },
+        {
+          key: "discount",
+          label: "折扣",
+          sortable: true,
+          thStyle: {
+            width: "8em",
+          },
+          tdClass: "bargain",
+        },
+        {
+          key: "sellPrice",
+          label: "特價",
+          thStyle: {
+            width: "8em",
+          },
+          tdClass: "bargain",
+        },
+        {
+          key: "link",
+          label: "連結",
+          thStyle: {
+            width: "5em",
+          },
+        },
+        {
+          key: "image",
+          label: "圖片",
+          thStyle: {
+            width: "10em",
+          },
+        },
+      ];
+    },
+  },
+  methods: {
+    discount(sell, origin) {
+      const bargain = (sell / origin) * 100;
+      return {
+        en: Math.floor(100 - bargain),
+        zh:
+          Math.ceil(bargain) % 10 === 0
+            ? Math.ceil(bargain) / 10
+            : Math.ceil(bargain),
+      };
+    },
+    isTracking(bookISBN) {
+      return this.trackingList.some((list) => list.ISBN === bookISBN);
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.TableMode {
+  margin: 20px auto;
+  max-width: 90%;
+  max-height: 920px;
+  overflow-y: auto;
+
+  border: 3px solid $dark-green;
+
+  ::v-deep table {
+    margin-bottom: 0;
+    width: 100%;
+    position: relative;
+
+    th {
+      position: sticky;
+      top: -5px;
+      z-index: 5;
+
+      box-shadow: 0 -2px 0 0px inset;
+      background-color: $dark-green;
+      color: #fff;
+      word-break: keep-all;
+    }
+
+    td {
+      vertical-align: middle;
+
+      &.bargain {
+        color: red;
+        font-weight: bold;
+      }
+      &.origin_price {
+        text-decoration: 2px line-through;
+      }
+    }
+
+    img {
+      max-width: 100px;
+    }
+  }
+}
+</style>
