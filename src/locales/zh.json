@@ -21,6 +21,11 @@
     "tracking": "加入追蹤",
     "untracked": "取消追蹤"
   },
+  "modal": {
+    "context": "確定要取消追蹤嗎？",
+    "confirm": "確定",
+    "cancel": "取消"
+  },
   "language": {
     "select": "選擇語系",
     "zh": "中文",

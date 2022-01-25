@@ -17,7 +17,7 @@
         <GalleryMode
           :data="bookList"
           :trackingList="trackingList"
-          @untrack="untrackBook"
+          @untrack="showConfirmModal"
           @track="trackBook"
         />
       </template>
@@ -26,7 +26,7 @@
         <TableMode
           :data="bookList"
           :trackingList="trackingList"
-          @untrack="untrackBook"
+          @untrack="showConfirmModal"
           @track="trackBook"
         />
       </template>
@@ -35,6 +35,20 @@
         <img src="@/assets/chevron-up.png" alt="Scroll To Top" />
       </button>
     </template>
+
+    <b-modal
+      id="confirm-modal"
+      :title="$t('book.untracked')"
+      :ok-title="$t('modal.confirm')"
+      :cancel-title="$t('modal.cancel')"
+      hide-header-close
+      no-close-on-backdrop
+      @ok="untrackBook"
+    >
+      <template #default>
+        {{ $t("modal.context") }}
+      </template>
+    </b-modal>
   </div>
 </template>
 
@@ -64,6 +78,7 @@ export default {
   data() {
     return {
       isGallery: true,
+      untrackIndex: "",
     };
   },
   computed: {
@@ -85,14 +100,18 @@ export default {
       this.$store.commit("trackingList", [...this.trackingList, book]);
       localStorage.setItem("TenlongList", JSON.stringify(this.trackingList));
     },
-    untrackBook(book) {
-      // console.log("remove: ", book.ISBN);
-      const untrackIndex = this.trackingList.findIndex(
+
+    showConfirmModal(book) {
+      this.untrackIndex = this.trackingList.findIndex(
         (list) => list.ISBN === book.ISBN
       );
+      this.$bvModal.show("confirm-modal");
+    },
+    untrackBook() {
+      // console.log("remove: ", this.untrackIndex);
       this.$store.commit("trackingList", [
-        ...this.trackingList.slice(0, untrackIndex),
-        ...this.trackingList.slice(untrackIndex + 1),
+        ...this.trackingList.slice(0, this.untrackIndex),
+        ...this.trackingList.slice(this.untrackIndex + 1),
       ]);
       localStorage.setItem("TenlongList", JSON.stringify(this.trackingList));
     },

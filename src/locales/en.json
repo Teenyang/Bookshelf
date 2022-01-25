@@ -21,6 +21,11 @@
     "tracking": "Tracking",
     "untracked": "Untracked"
   },
+  "modal": {
+    "context": "Are you sure?",
+    "confirm": "Confirm",
+    "cancel": "Cancel"
+  },
   "language": {
     "select": "Language",
     "zh": "Chinese",
