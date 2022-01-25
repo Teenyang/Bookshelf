@@ -5,6 +5,7 @@
 @import "~bootstrap/scss/root";
 @import "~bootstrap/scss/reboot";
 @import "~bootstrap/scss/utilities";
+@import "~bootstrap/scss/type";
 
 // Bootstrap grid system
 @import "~bootstrap/scss/grid";
@@ -20,6 +21,9 @@
 @import "~bootstrap/scss/dropdown";
 
 // BootstrapVue components
+@import "~bootstrap-vue/src/variables";
+@import "~bootstrap-vue/src/utilities";
 @import "~bootstrap-vue/src/components/navbar"; // include dropdown
 @import "~bootstrap-vue/src/components/form-input";
 @import "~bootstrap-vue/src/components/modal";
+@import "~bootstrap-vue/src/components/table";
