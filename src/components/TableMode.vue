@@ -12,7 +12,7 @@
       <template #cell(track)="{ item }">
         <template v-if="isTracking(item.ISBN)">
           <b-icon
-            @click="$emit('track', item)"
+            @click="$emit('untrack', item)"
             icon="star-fill"
             aria-hidden="true"
             variant="warning"
@@ -176,6 +176,11 @@ export default {
 
     img {
       max-width: 100px;
+    }
+  }
+  .b-icon {
+    &:hover {
+      cursor: pointer;
     }
   }
 }

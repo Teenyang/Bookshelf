@@ -126,11 +126,6 @@ export default {
   .btn {
     font-weight: 600;
   }
-  .b-icon {
-    &:hover {
-      cursor: pointer;
-    }
-  }
 
   .scroll_top {
     padding: 10px 0;
