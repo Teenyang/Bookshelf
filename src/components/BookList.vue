@@ -138,12 +138,17 @@ export default {
     border-radius: 6px;
     background-color: white;
 
-    img {
-      width: 50%;
-    }
-
     &:focus {
       border: 3px solid #003f85;
+    }
+    &:hover > img {
+      transform: rotate(0deg);
+    }
+
+    img {
+      width: 50%;
+      transition: transform 0.5s;
+      transform: rotate(180deg);
     }
   }
 }
