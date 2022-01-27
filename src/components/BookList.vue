@@ -1,6 +1,7 @@
 <template>
   <div class="BookList">
     <h1>{{ navTitle }}</h1>
+    <pre>trackingISBNs: {{ trackingISBNs }}</pre>
     <slot />
 
     <template v-if="bookList.length > 0">
@@ -16,7 +17,7 @@
       <template v-if="isGallery">
         <GalleryMode
           :data="bookList"
-          :trackingList="trackingList"
+          :trackingISBNs="trackingISBNs"
           @untrack="showConfirmModal"
           @track="trackBook"
         />
@@ -25,7 +26,7 @@
       <template v-else>
         <TableMode
           :data="bookList"
-          :trackingList="trackingList"
+          :trackingISBNs="trackingISBNs"
           @untrack="showConfirmModal"
           @track="trackBook"
         />
@@ -71,7 +72,7 @@ export default {
   },
   created() {
     this.$store.commit(
-      "trackingList",
+      "trackingISBNs",
       JSON.parse(localStorage.getItem("TenlongList")) || []
     );
   },
@@ -82,8 +83,8 @@ export default {
     };
   },
   computed: {
-    trackingList() {
-      return this.$store.getters["trackingList"];
+    trackingISBNs() {
+      return this.$store.getters["trackingISBNs"];
     },
   },
   methods: {
@@ -97,23 +98,24 @@ export default {
 
     trackBook(book) {
       // console.log("add: ", book.ISBN);
-      this.$store.commit("trackingList", [...this.trackingList, book]);
-      localStorage.setItem("TenlongList", JSON.stringify(this.trackingList));
+      this.$store.commit("trackingISBNs", [...this.trackingISBNs, book.ISBN]);
+      console.log("trackBook: ", this.$store.getters["trackingISBNs"]);
+      localStorage.setItem("TenlongList", JSON.stringify(this.trackingISBNs));
     },
 
     showConfirmModal(book) {
-      this.untrackIndex = this.trackingList.findIndex(
-        (list) => list.ISBN === book.ISBN
+      this.untrackIndex = this.trackingISBNs.findIndex(
+        (listISBN) => listISBN === book.ISBN
       );
       this.$bvModal.show("confirm-modal");
     },
     untrackBook() {
       // console.log("remove: ", this.untrackIndex);
-      this.$store.commit("trackingList", [
-        ...this.trackingList.slice(0, this.untrackIndex),
-        ...this.trackingList.slice(this.untrackIndex + 1),
+      this.$store.commit("trackingISBNs", [
+        ...this.trackingISBNs.slice(0, this.untrackIndex),
+        ...this.trackingISBNs.slice(this.untrackIndex + 1),
       ]);
-      localStorage.setItem("TenlongList", JSON.stringify(this.trackingList));
+      localStorage.setItem("TenlongList", JSON.stringify(this.trackingISBNs));
     },
   },
 };
