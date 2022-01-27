@@ -15,11 +15,19 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+    beforeEnter: (to, from, next) => {
+      store.dispatch("fetchBookList");
+      next();
+    },
   },
   {
     path: "/list/:nav",
     name: "List",
     component: List,
+    beforeEnter: async (to, from, next) => {
+      await store.dispatch("fetchBookList");
+      next();
+    },
   },
   // {
   //   path: "/book",
@@ -52,11 +60,6 @@ const router = new VueRouter({
   scrollBehavior() {
     return { x: 0, y: 0, behavior: "smooth" };
   },
-});
-
-router.beforeEach(async (to, from, next) => {
-  await store.dispatch("fetchBookList");
-  next();
 });
 
 export default router;
