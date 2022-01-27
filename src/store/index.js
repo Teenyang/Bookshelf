@@ -8,20 +8,25 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     bookList: {},
-    trackingList: [],
+    trackingISBNs: [],
   },
   getters: {
+    trackingISBNs: (state) => state.trackingISBNs,
+    trackingList: (state, getters) =>
+      getters.trackingISBNs.map((trackingISBN) =>
+        getters.allBooks.find((book) => book.ISBN === trackingISBN)
+      ),
+
     allBooks: (state) => state.bookList.list ?? [], // 若前者為undefined，則回傳後者
     ithelpBook: (state, getters) =>
       getters["allBooks"].filter((book) => book.name.includes("鐵人賽")),
-    trackingList: (state) => state.trackingList,
   },
   mutations: {
     bookList(state, books) {
       state.bookList = books;
     },
-    trackingList(state, books) {
-      state.trackingList = books;
+    trackingISBNs(state, books) {
+      state.trackingISBNs = books;
     },
   },
   actions: {
