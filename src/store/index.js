@@ -17,7 +17,16 @@ export default new Vuex.Store({
         getters.allBooks.find((book) => book.ISBN === trackingISBN)
       ),
 
-    allBooks: (state) => state.bookList.list ?? [], // 若前者為undefined，則回傳後者
+    allBooks: (state, getters) =>
+      state.bookList.list.map((book) => {
+        return {
+          ...book,
+          isTracking: getters.trackingISBNs.some(
+            (trackingISBN) => trackingISBN === book.ISBN
+          ),
+        };
+      }) ?? [], // 若前者為undefined，則回傳後者
+
     ithelpBook: (state, getters) =>
       getters["allBooks"].filter((book) => book.name.includes("鐵人賽")),
   },
