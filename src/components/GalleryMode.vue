@@ -35,7 +35,7 @@
             <b-button :href="book.link" target="_blank" variant="secondary">
               {{ $t("book.link") }}
             </b-button>
-            <template v-if="isTracking(book.ISBN)">
+            <template v-if="book.isTracking">
               <b-button @click="$emit('untrack', book)" variant="warning">
                 <b-icon icon="star-fill" aria-hidden="true" class="mr-2">
                 </b-icon>
@@ -63,10 +63,6 @@ export default {
       type: Array,
       required: true,
     },
-    trackingList: {
-      type: Array,
-      required: true,
-    },
   },
   methods: {
     discount(sell, origin) {
@@ -78,9 +74,6 @@ export default {
             ? Math.ceil(bargain) / 10
             : Math.ceil(bargain),
       };
-    },
-    isTracking(bookISBN) {
-      return this.trackingList.some((list) => list.ISBN === bookISBN);
     },
   },
 };

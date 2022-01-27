@@ -10,7 +10,7 @@
       <template #head(image)>{{ $t("book.image") }}</template>
 
       <template #cell(track)="{ item }">
-        <template v-if="isTracking(item.ISBN)">
+        <template v-if="item.isTracking">
           <b-icon
             @click="$emit('untrack', item)"
             icon="star-fill"
@@ -48,10 +48,6 @@ export default {
   name: "TableMode",
   props: {
     data: {
-      type: Array,
-      required: true,
-    },
-    trackingList: {
       type: Array,
       required: true,
     },
@@ -129,9 +125,6 @@ export default {
             ? Math.ceil(bargain) / 10
             : Math.ceil(bargain),
       };
-    },
-    isTracking(bookISBN) {
-      return this.trackingList.some((list) => list.ISBN === bookISBN);
     },
   },
 };

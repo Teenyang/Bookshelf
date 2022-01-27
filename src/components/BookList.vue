@@ -17,7 +17,6 @@
       <template v-if="isGallery">
         <GalleryMode
           :data="bookList"
-          :trackingISBNs="trackingISBNs"
           @untrack="showConfirmModal"
           @track="trackBook"
         />
@@ -26,7 +25,6 @@
       <template v-else>
         <TableMode
           :data="bookList"
-          :trackingISBNs="trackingISBNs"
           @untrack="showConfirmModal"
           @track="trackBook"
         />
