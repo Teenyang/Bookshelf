@@ -1,7 +1,6 @@
 <template>
   <div class="BookList">
     <h1>{{ navTitle }}</h1>
-    <pre>trackingISBNs: {{ trackingISBNs }}</pre>
     <slot />
 
     <template v-if="bookList.length > 0">
