@@ -1,6 +1,14 @@
 <template>
   <div class="TableMode">
-    <b-table hover bordered sortable :items="data" :fields="fields">
+    <b-table
+      hover
+      bordered
+      head-variant="dark"
+      :sort-by.sync="sortBy"
+      :sort-desc.sync="sortDesc"
+      :items="data"
+      :fields="fields"
+    >
       <template #head(track)>{{ $t("book.track") }}</template>
       <template #head(name)>{{ $t("book.title") }}</template>
       <template #head(originPrice)>{{ $t("book.originPrice") }}</template>
@@ -53,6 +61,12 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      sortBy: "sellPrice",
+      sortDesc: false,
+    };
+  },
   computed: {
     fields() {
       return [
@@ -85,7 +99,6 @@ export default {
         {
           key: "discount",
           label: "折扣",
-          sortable: true,
           thStyle: {
             width: "8em",
           },
@@ -94,6 +107,7 @@ export default {
         {
           key: "sellPrice",
           label: "特價",
+          sortable: true,
           thStyle: {
             width: "8em",
           },
@@ -131,14 +145,17 @@ export default {
 
   border: 3px solid $dark-green;
 
-  ::v-deep table {
+  ::v-deep .table {
     margin-bottom: 0;
     width: 100%;
     position: relative;
 
+    .thead-dark th {
+      border-color: white;
+    }
     th {
       position: sticky;
-      top: -5px;
+      top: -1px;
       z-index: 5;
 
       box-shadow: 0 -2px 0 0px inset;
