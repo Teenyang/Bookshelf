@@ -29,7 +29,7 @@
         ${{ item.originPrice }}
       </template>
       <template #cell(discount)="{ item }">
-        {{ discount(item.sellPrice, item.originPrice)[$i18n.locale]
+        {{ calcDiscount(item.sellPrice, item.originPrice)[$i18n.locale]
         }}{{ $t("book.percent") }}
       </template>
       <template #cell(sellPrice)="{ item }"> ${{ item.sellPrice }} </template>
@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import calcDiscountByLocale from "@/utilities/calcDiscount.js";
 export default {
   name: "TableMode",
   props: {
@@ -116,16 +117,7 @@ export default {
     },
   },
   methods: {
-    discount(sell, origin) {
-      const bargain = (sell / origin) * 100;
-      return {
-        en: Math.floor(100 - bargain),
-        zh:
-          Math.ceil(bargain) % 10 === 0
-            ? Math.ceil(bargain) / 10
-            : Math.ceil(bargain),
-      };
-    },
+    calcDiscount: calcDiscountByLocale,
   },
 };
 </script>

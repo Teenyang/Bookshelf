@@ -15,7 +15,7 @@
             {{ $t("book.originPrice") }}：
             <span class="book_origin_price">${{ book.originPrice }}</span>
             <span class="book_discount"
-              >{{ discount(book.sellPrice, book.originPrice)[$i18n.locale]
+              >{{ calcDiscount(book.sellPrice, book.originPrice)[$i18n.locale]
               }}{{ $t("book.percent") }}</span
             >
           </p>
@@ -56,6 +56,7 @@
 </template>
 
 <script>
+import calcDiscountByLocale from "@/utilities/calcDiscount.js";
 export default {
   name: "GalleryMode",
   props: {
@@ -65,16 +66,7 @@ export default {
     },
   },
   methods: {
-    discount(sell, origin) {
-      const bargain = (sell / origin) * 100;
-      return {
-        en: Math.floor(100 - bargain),
-        zh:
-          Math.ceil(bargain) % 10 === 0
-            ? Math.ceil(bargain) / 10
-            : Math.ceil(bargain),
-      };
-    },
+    calcDiscount: calcDiscountByLocale,
   },
 };
 </script>
