@@ -9,7 +9,6 @@
 
 <script>
 import BookList from "@/components/BookList.vue";
-import Constants from "@/utilities/Constants.js";
 
 export default {
   name: "MainPage",
@@ -31,8 +30,18 @@ export default {
     };
   },
   computed: {
+    navPathOfLists() {
+      return {
+        all: "allBooks",
+        ithelp: "ithelpBook",
+        tracking: "trackingList",
+      };
+    },
+
     books() {
-      return this.$store.getters[`${Constants[this.currentNav]}`] || [];
+      // 導覽列路徑對應清單資料來源的getters名稱
+      const gettersData = this.navPathOfLists[this.currentNav];
+      return this.$store.getters[gettersData] || [];
     },
   },
 };
