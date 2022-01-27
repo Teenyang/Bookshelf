@@ -11,7 +11,7 @@ export default new Vuex.Store({
     trackingList: [],
   },
   getters: {
-    allBooks: (state) => state.bookList.list,
+    allBooks: (state) => state.bookList.list ?? [], // 若前者為undefined，則回傳後者
     ithelpBook: (state, getters) =>
       getters["allBooks"].filter((book) => book.name.includes("鐵人賽")),
     trackingList: (state) => state.trackingList,
