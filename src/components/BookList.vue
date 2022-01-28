@@ -130,12 +130,12 @@ export default {
     padding: 10px 0;
 
     position: fixed;
-    bottom: 10px;
-    right: 10px;
+    bottom: 15px;
+    right: 15px;
 
     border: 3px solid #003f85;
     border-radius: 6px;
-    background-color: white;
+    background-color: $light-green;
 
     &:focus {
       border: 3px solid #003f85;
