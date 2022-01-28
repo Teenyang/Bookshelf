@@ -1,6 +1,14 @@
 <template>
   <div class="TableMode">
-    <b-table hover bordered sortable :items="data" :fields="fields">
+    <b-table
+      hover
+      bordered
+      head-variant="dark"
+      :sort-by.sync="sortBy"
+      :sort-desc.sync="sortDesc"
+      :items="data"
+      :fields="fields"
+    >
       <template #head(track)>{{ $t("book.track") }}</template>
       <template #head(name)>{{ $t("book.title") }}</template>
       <template #head(originPrice)>{{ $t("book.originPrice") }}</template>
@@ -10,7 +18,7 @@
       <template #head(image)>{{ $t("book.image") }}</template>
 
       <template #cell(track)="{ item }">
-        <template v-if="isTracking(item.ISBN)">
+        <template v-if="item.isTracking">
           <b-icon
             @click="$emit('untrack', item)"
             icon="star-fill"
@@ -29,7 +37,7 @@
         ${{ item.originPrice }}
       </template>
       <template #cell(discount)="{ item }">
-        {{ discount(item.sellPrice, item.originPrice)[$i18n.locale]
+        {{ calcDiscount(item.sellPrice, item.originPrice)[$i18n.locale]
         }}{{ $t("book.percent") }}
       </template>
       <template #cell(sellPrice)="{ item }"> ${{ item.sellPrice }} </template>
@@ -44,6 +52,7 @@
 </template>
 
 <script>
+import calcDiscountByLocale from "@/utilities/calcDiscount.js";
 export default {
   name: "TableMode",
   props: {
@@ -51,10 +60,12 @@ export default {
       type: Array,
       required: true,
     },
-    trackingList: {
-      type: Array,
-      required: true,
-    },
+  },
+  data() {
+    return {
+      sortBy: "sellPrice",
+      sortDesc: false,
+    };
   },
   computed: {
     fields() {
@@ -88,7 +99,6 @@ export default {
         {
           key: "discount",
           label: "折扣",
-          sortable: true,
           thStyle: {
             width: "8em",
           },
@@ -97,6 +107,7 @@ export default {
         {
           key: "sellPrice",
           label: "特價",
+          sortable: true,
           thStyle: {
             width: "8em",
           },
@@ -120,19 +131,7 @@ export default {
     },
   },
   methods: {
-    discount(sell, origin) {
-      const bargain = (sell / origin) * 100;
-      return {
-        en: Math.floor(100 - bargain),
-        zh:
-          Math.ceil(bargain) % 10 === 0
-            ? Math.ceil(bargain) / 10
-            : Math.ceil(bargain),
-      };
-    },
-    isTracking(bookISBN) {
-      return this.trackingList.some((list) => list.ISBN === bookISBN);
-    },
+    calcDiscount: calcDiscountByLocale,
   },
 };
 </script>
@@ -146,14 +145,18 @@ export default {
 
   border: 3px solid $dark-green;
 
-  ::v-deep table {
+  ::v-deep .table {
     margin-bottom: 0;
     width: 100%;
+    min-width: 1024px;
     position: relative;
 
+    .thead-dark th {
+      border-color: white;
+    }
     th {
       position: sticky;
-      top: -5px;
+      top: -1px;
       z-index: 5;
 
       box-shadow: 0 -2px 0 0px inset;

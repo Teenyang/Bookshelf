@@ -17,7 +17,10 @@
           v-for="navItem in navList"
           :key="navItem.id"
         >
-          <router-link :to="{ name: navItem.name }" class="nav-link">
+          <router-link
+            :to="{ name: 'List', params: { nav: navItem.name } }"
+            class="nav-link"
+          >
             {{ $t(navItem.item) }}
           </router-link>
         </b-navbar-nav>
@@ -43,9 +46,9 @@ export default {
   data() {
     return {
       navList: [
-        { id: 1, item: "navItem.all", name: "All" },
-        { id: 2, item: "navItem.ithelp", name: "Ithelp" },
-        { id: 3, item: "navItem.tracking", name: "Tracking" },
+        { id: 1, item: "navItem.all", name: "all" },
+        { id: 2, item: "navItem.ithelp", name: "ithelp" },
+        { id: 3, item: "navItem.tracking", name: "tracking" },
       ],
     };
   },

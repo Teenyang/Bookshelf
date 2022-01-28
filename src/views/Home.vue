@@ -1,6 +1,9 @@
 <template>
   <div class="Home">
-    <BookList navTitle="tenlongInGoodideas" :bookList="searchText ? books : []">
+    <BookList
+      :navTitle="$t('navItem.tenlongInGoodideas')"
+      :bookList="searchText ? books : []"
+    >
       <label
         >{{ $t("book.search") }}：
         <input type="text" v-model="searchText" />

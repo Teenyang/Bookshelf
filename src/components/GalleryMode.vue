@@ -15,7 +15,7 @@
             {{ $t("book.originPrice") }}：
             <span class="book_origin_price">${{ book.originPrice }}</span>
             <span class="book_discount"
-              >{{ discount(book.sellPrice, book.originPrice)[$i18n.locale]
+              >{{ calcDiscount(book.sellPrice, book.originPrice)[$i18n.locale]
               }}{{ $t("book.percent") }}</span
             >
           </p>
@@ -35,7 +35,7 @@
             <b-button :href="book.link" target="_blank" variant="secondary">
               {{ $t("book.link") }}
             </b-button>
-            <template v-if="isTracking(book.ISBN)">
+            <template v-if="book.isTracking">
               <b-button @click="$emit('untrack', book)" variant="warning">
                 <b-icon icon="star-fill" aria-hidden="true" class="mr-2">
                 </b-icon>
@@ -56,6 +56,7 @@
 </template>
 
 <script>
+import calcDiscountByLocale from "@/utilities/calcDiscount.js";
 export default {
   name: "GalleryMode",
   props: {
@@ -63,25 +64,9 @@ export default {
       type: Array,
       required: true,
     },
-    trackingList: {
-      type: Array,
-      required: true,
-    },
   },
   methods: {
-    discount(sell, origin) {
-      const bargain = (sell / origin) * 100;
-      return {
-        en: Math.floor(100 - bargain),
-        zh:
-          Math.ceil(bargain) % 10 === 0
-            ? Math.ceil(bargain) / 10
-            : Math.ceil(bargain),
-      };
-    },
-    isTracking(bookISBN) {
-      return this.trackingList.some((list) => list.ISBN === bookISBN);
-    },
+    calcDiscount: calcDiscountByLocale,
   },
 };
 </script>
