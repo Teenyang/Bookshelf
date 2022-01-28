@@ -148,6 +148,7 @@ export default {
   ::v-deep .table {
     margin-bottom: 0;
     width: 100%;
+    min-width: 1024px;
     position: relative;
 
     .thead-dark th {
